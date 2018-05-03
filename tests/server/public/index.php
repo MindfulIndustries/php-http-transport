@@ -8,8 +8,16 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__ . '/../')
 );
 
-$app->router->get('/get', function () {
-    return build_response(app('request'));
+foreach (['get', 'post', 'put', 'patch', 'delete'] as $method) {
+    $app->router->{$method}('/' . $method, function () {
+        return build_response(app('request'));
+    });
+}
+
+$app->router->get('/timeout', function () {
+    sleep(
+        app('request')->input('seconds') ?? 2
+    );
 });
 
 $app->run();

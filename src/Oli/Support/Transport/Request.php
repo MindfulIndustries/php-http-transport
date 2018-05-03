@@ -71,6 +71,36 @@ class Request
 
 
     /**
+     * Add customs headers to the Request.
+     * @param   array $headers
+     * @return  $this
+     */
+    public function withHeaders(array $headers) : Request
+    {
+        $this->options = array_merge_recursive(
+            $this->options,
+            [
+                'headers' => $headers
+            ]
+        );
+
+        return $this;
+    }
+
+
+    /**
+     * Configure desired Timeout for the Request.
+     * @param   int $seconds
+     * @return  $this
+     */
+    public function timeout(int $seconds) : Request
+    {
+        $this->options['timeout'] = $seconds;
+        return $this;
+    }
+
+
+    /**
      * Request GET.
      * @param   string $url
      * @param   array $params
@@ -86,21 +116,81 @@ class Request
 
 
     /**
-     * Execute Http Request.
-     * @param   string $method
+     * Request POST.
      * @param   string $url
-     * @param   mixed $params
+     * @param   array $params
      * @return  \Oli\Support\Transport\Response
      * @throws  \Oli\Support\Transport\ConnectionException
      */
-    protected function request(string $method, string $url, $params) : Response
+    public function post(string $url, array $params = []) : Response
+    {
+        return $this->request('POST', $url, [
+            $this->bodyFormat => $params
+        ]);
+    }
+
+
+    /**
+     * Request PATCH.
+     * @param   string $url
+     * @param   array $params
+     * @return  \Oli\Support\Transport\Response
+     * @throws  \Oli\Support\Transport\ConnectionException
+     */
+    public function patch(string $url, array $params = []) : Response
+    {
+        return $this->request('PATCH', $url, [
+            $this->bodyFormat => $params
+        ]);
+    }
+
+
+    /**
+     * Request PUT.
+     * @param   string $url
+     * @param   array $params
+     * @return  \Oli\Support\Transport\Response
+     * @throws  \Oli\Support\Transport\ConnectionException
+     */
+    public function put(string $url, array $params = []) : Response
+    {
+        return $this->request('PUT', $url, [
+            $this->bodyFormat => $params
+        ]);
+    }
+
+
+
+    /**
+     * Request DELETE.
+     * @param   string $url
+     * @param   array $params
+     * @return  \Oli\Support\Transport\Response
+     * @throws  \Oli\Support\Transport\ConnectionException
+     */
+    public function delete(string $url, array $params = []) : Response
+    {
+        return $this->request('DELETE', $url, [
+            $this->bodyFormat => $params
+        ]);
+    }
+
+    /**
+     * Execute Http Request.
+     * @param   string $method
+     * @param   string $url
+     * @param   array $params
+     * @return  \Oli\Support\Transport\Response
+     * @throws  \Oli\Support\Transport\ConnectionException
+     */
+    protected function request(string $method, string $url, array $params) : Response
     {
         try {
             return new Response(
                 $this->guzzleClient()->request(
                     $method,
                     $url,
-                    $this->buildParams(
+                    $this->mergeParams(
                         ['query' => $this->queryParams($url)],
                         $params
                     )
@@ -123,10 +213,11 @@ class Request
 
 
     /**
-     * Merge given params.
+     * Merge options with given Parameters.
+     * @param   array $params
      * @return  array
      */
-    protected function buildParams(...$params) : array
+    protected function mergeParams(array ...$params) : array
     {
         return array_merge_recursive($this->options, ...$params);
     }

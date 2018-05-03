@@ -8,6 +8,6 @@ if (!function_exists('build_response')) {
             'query' => $request->query(),
             'json' => $request->json()->all(),
             'form_params' => $request->request->all(),
-        ], 200);
+        ], $request->header('testing-response-code', 200));
     }
 }

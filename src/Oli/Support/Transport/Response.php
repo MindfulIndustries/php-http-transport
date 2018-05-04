@@ -43,7 +43,7 @@ class Response
      */
     public function header(string $name) : ?string
     {
-        return $this->response->getHeaderLine($header);
+        return $this->response->getHeaderLine($name);
     }
 
 

@@ -5,6 +5,8 @@ namespace Oli\Support\Transport;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 
 class Request
 {
@@ -14,6 +16,9 @@ class Request
     /** @var string */
     protected $bodyFormat;
 
+    /** @var \GuzzleHttp\Handler\MockHandler */
+    protected $mock;
+
 
     public function __construct()
     {
@@ -22,6 +27,8 @@ class Request
         ];
 
         $this->bodyFormat = 'json';
+
+        $this->mock = null;
     }
 
 
@@ -84,6 +91,18 @@ class Request
             ]
         );
 
+        return $this;
+    }
+
+
+    /**
+     * Enable Response Mocking.
+     * @param   \GuzzleHttp\Handler\MockHandler $handler
+     * @return  $this
+     */
+    public function withMock(MockHandler $handler) : Request
+    {
+        $this->mock = $handler;
         return $this;
     }
 
@@ -208,7 +227,9 @@ class Request
      */
     protected function guzzleClient() : Client
     {
-        return new Client();
+        return is_null($this->mock)
+            ? new Client()
+            : new Client(['handler' => HandlerStack::create($this->mock)]);
     }
 
 

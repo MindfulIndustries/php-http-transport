@@ -7,6 +7,12 @@ use Tests\TestCase;
 
 class HttpTest extends TestCase
 {
+    public static function setUpBeforeClass()
+    {
+        \Tests\FakeServer::start();
+    }
+
+
     /** @test */
     public function testCanGetParamsAsArray()
     {

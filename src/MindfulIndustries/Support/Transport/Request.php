@@ -1,6 +1,6 @@
 <?php
 
-namespace Oli\Support\Transport;
+namespace MindfulIndustries\Support\Transport;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -123,8 +123,8 @@ class Request
      * Request GET.
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     public function get(string $url, array $params = []) : Response
     {
@@ -138,8 +138,8 @@ class Request
      * Request POST.
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     public function post(string $url, array $params = []) : Response
     {
@@ -153,8 +153,8 @@ class Request
      * Request PATCH.
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     public function patch(string $url, array $params = []) : Response
     {
@@ -168,8 +168,8 @@ class Request
      * Request PUT.
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     public function put(string $url, array $params = []) : Response
     {
@@ -184,8 +184,8 @@ class Request
      * Request DELETE.
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     public function delete(string $url, array $params = []) : Response
     {
@@ -199,8 +199,8 @@ class Request
      * @param   string $method
      * @param   string $url
      * @param   array $params
-     * @return  \Oli\Support\Transport\Response
-     * @throws  \Oli\Support\Transport\ConnectionException
+     * @return  \MindfulIndustries\Support\Transport\Response
+     * @throws  \MindfulIndustries\Support\Transport\ConnectionException
      */
     protected function request(string $method, string $url, array $params) : Response
     {

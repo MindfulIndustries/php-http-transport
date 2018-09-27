@@ -1,5 +1,5 @@
 <?php
 
-namespace Oli\Support\Transport;
+namespace MindfulIndustries\Support\Transport;
 
 class ConnectionException extends \Exception {}

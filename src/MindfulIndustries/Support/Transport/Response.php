@@ -1,6 +1,6 @@
 <?php
 
-namespace Oli\Support\Transport;
+namespace MindfulIndustries\Support\Transport;
 
 use Psr\Http\Message\ResponseInterface;
 

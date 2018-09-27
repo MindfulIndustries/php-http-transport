@@ -12,7 +12,7 @@ Simple PHP Guzzle wrapper inspired by [Zttp](https://github.com/kitetail/zttp).
 
 ## Usage without timeout
 ```php
-$response = \Oli\Support\Transport\Http::get('http://example.com', [
+$response = \MindfulIndustries\Support\Transport\Http::get('http://example.com', [
    'foo' => 'bar'
 ]);
 ```
@@ -21,10 +21,10 @@ $response = \Oli\Support\Transport\Http::get('http://example.com', [
 ## Usage with timeout
 ```php
 try {
-    $response = \Oli\Support\Transport\Http::timeout(5)->post('http://your.domain', [
+    $response = \MindfulIndustries\Support\Transport\Http::timeout(5)->post('http://your.domain', [
         'foo' => 'bar'
     ]);
-} catch (\Oli\Support\Transport\ConnectionException $e) {
+} catch (\MindfulIndustries\Support\Transport\ConnectionException $e) {
     // timed out ..
 }
 ```

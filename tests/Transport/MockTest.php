@@ -2,7 +2,7 @@
 
 namespace Tests\Transport;
 
-use Oli\Support\Transport\Http;
+use MindfulIndustries\Support\Transport\Http;
 use Tests\TestCase;
 
 class MockTest extends TestCase

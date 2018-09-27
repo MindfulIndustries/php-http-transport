@@ -2,7 +2,7 @@
 
 namespace Tests\Transport;
 
-use Oli\Support\Transport\Http;
+use MindfulIndustries\Support\Transport\Http;
 use Tests\TestCase;
 
 class HttpTest extends TestCase
@@ -111,7 +111,7 @@ class HttpTest extends TestCase
     /** @test */
     public function testCanTimeout()
     {
-        $this->expectException(\Oli\Support\Transport\ConnectionException::class);
+        $this->expectException(\MindfulIndustries\Support\Transport\ConnectionException::class);
         Http::timeout(1)->get($this->url('/timeout?seconds=2'));
     }
 

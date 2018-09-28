@@ -16,6 +16,9 @@ class Request
     /** @var string */
     protected $bodyFormat;
 
+    /** @var string */
+    protected $urlPrefix;
+
     /** @var \GuzzleHttp\Handler\MockHandler */
     protected $mock;
 
@@ -27,6 +30,8 @@ class Request
         ];
 
         $this->bodyFormat = 'json';
+
+        $this->urlPrefix = '';
 
         $this->mock = null;
     }
@@ -91,6 +96,18 @@ class Request
             ]
         );
 
+        return $this;
+    }
+
+
+    /**
+     * Prepend any call Url with given Prefix.
+     * @param   string $prefix
+     * @return  $this
+     */
+    public function withUrlPrefix(string $prefix) : Request
+    {
+        $this->urlPrefix = $prefix;
         return $this;
     }
 
@@ -208,7 +225,7 @@ class Request
             return new Response(
                 $this->guzzleClient()->request(
                     $method,
-                    $url,
+                    $this->urlPrefix . $url,
                     $this->mergeParams(
                         ['query' => $this->queryParams($url)],
                         $params

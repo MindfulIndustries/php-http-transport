@@ -116,6 +116,14 @@ class HttpTest extends TestCase
     }
 
 
+    /** @test */
+    public function testPrefixedUrlCallWorks()
+    {
+        $response = Http::withUrlPrefix(sprintf('http://localhost:%d/', getenv('TEST_SERVER_PORT')))->get('get');
+        $this->assertTrue($response->isOk());
+    }
+
+
     /**
      * Build testing Url.
      * @param   string $query

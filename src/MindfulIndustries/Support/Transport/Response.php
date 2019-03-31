@@ -97,4 +97,14 @@ class Response
     {
         return $this->response->{$method}(...$arguments);
     }
+
+
+    /**
+     * Converts the Instance to string.
+     * @return string
+     */
+    public function __toString()
+    {
+        return print_r($this, true);
+    }
 }

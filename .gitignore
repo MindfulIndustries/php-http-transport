@@ -2,3 +2,4 @@
 /phpunit.xml
 /tests/server/storage/*
 /vendor
+.phpunit.result.cache

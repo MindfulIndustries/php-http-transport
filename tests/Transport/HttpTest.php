@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class HttpTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         \Tests\FakeServer::start();
     }
@@ -23,12 +23,10 @@ class HttpTest extends TestCase
 
         $this->assertTrue($response->isOk());
 
-        $this->assertArraySubset([
-            'query' => [
+        $this->assertSame([
                 'foo' => 'bar',
                 'baz' => 'qwe'
-            ]
-        ], $response->json());
+        ], $response->json()['query']);
     }
 
 
@@ -38,12 +36,10 @@ class HttpTest extends TestCase
         $response = Http::get($this->url('/get?foo=bar&baz=qwe'));
 
         $this->assertTrue($response->isOk());
-        $this->assertArraySubset([
-            'query' => [
-                'foo' => 'bar',
-                'baz' => 'qwe'
-            ]
-        ], $response->json());
+        $this->assertSame([
+            'foo' => 'bar',
+            'baz' => 'qwe'
+        ], $response->json()['query']);
     }
 
 
@@ -55,12 +51,10 @@ class HttpTest extends TestCase
         ]);
 
         $this->assertTrue($response->isOk());
-        $this->assertArraySubset([
-            'query' => [
-                'foo' => 'bar',
-                'baz' => 'qwe'
-            ]
-        ], $response->json());
+        $this->assertSame([
+            'foo' => 'bar',
+            'baz' => 'qwe'
+        ], $response->json()['query']);
     }
 
 
@@ -74,12 +68,10 @@ class HttpTest extends TestCase
             ]);
 
             $this->assertTrue($response->isOk());
-            $this->assertArraySubset([
-                'json' => [
-                    'foo' => 'bar',
-                    'baz' => 'qwe'
-                ]
-            ], $response->json());
+            $this->assertSame([
+                'foo' => 'bar',
+                'baz' => 'qwe'
+            ], $response->json()['json']);
         }
     }
 
@@ -90,11 +82,7 @@ class HttpTest extends TestCase
         $response = Http::withHeaders(['foo' => 'bar'])->post($this->url('/post'));
 
         $this->assertTrue($response->isOk());
-        $this->assertArraySubset([
-            'headers' => [
-                'foo' => ['bar']
-            ]
-        ], $response->json());
+        $this->assertSame(['bar'], $response->json()['headers']['foo']);
     }
 
 

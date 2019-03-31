@@ -20,7 +20,11 @@ class Request
     protected $urlPrefix;
 
     /** @var \GuzzleHttp\Handler\MockHandler */
-    protected $mock;
+    protected $mockHandler = null;
+
+
+    /** @var \GuzzleHttp\Handler\MockHandler */
+    static protected $staticMockHandler = null;
 
 
     public function __construct()
@@ -119,8 +123,19 @@ class Request
      */
     public function withMock(MockHandler $handler) : Request
     {
-        $this->mock = $handler;
+        $this->mockHandler = $handler;
         return $this;
+    }
+
+
+    /**
+     * Set static Mock Handler.
+     * @param  \GuzzleHttp\Handler\MockHandler $handler
+     * @return void
+     */
+    public function staticMock(MockHandler $handler)
+    {
+        static::$staticMockHandler = $handler;
     }
 
 
@@ -244,9 +259,11 @@ class Request
      */
     protected function guzzleClient() : Client
     {
-        return is_null($this->mock)
+        $mock = $this->mockHandler ?? static::$staticMockHandler ?? null;
+
+        return is_null($mock)
             ? new Client()
-            : new Client(['handler' => HandlerStack::create($this->mock)]);
+            : new Client(['handler' => HandlerStack::create($mock)]);
     }
 
 

@@ -140,6 +140,16 @@ class Request
 
 
     /**
+     * Release (if any) previsouly set static Mock Handler.
+     * @return void
+     */
+    public function releaseStaticMock()
+    {
+        static::$staticMockHandler = null;
+    }
+
+
+    /**
      * Configure desired Timeout for the Request.
      * @param   int $seconds
      * @return  $this
